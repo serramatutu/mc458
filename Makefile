@@ -1,16 +1,16 @@
 .PHONY: build clean
 
-EXECUTABLE = bin/${TARGET}/${TARGET}
+EXECUTABLE = bin/${TARGET}/${TARGET}.out
 
 SOURCES = $(wildcard ${TARGET}/*.cpp)
 OBJECTS = $(patsubst %.cpp, %.o, ${SOURCES})
-GFLAGS  = -O3 -Wall
+GFLAGS  = -O3 -Wall -std=c++98
 
 build: makedirs $(OBJECTS)
 	g++ $(GFLAGS) bin/${TARGET}/*.o -o $(EXECUTABLE)
 
 %.o: %.cpp
-	g++ $(GFLAGS) -g -I common -c $< -o bin/$@
+	g++ $(GFLAGS) -g -c $< -o bin/$@
 
 clean:
 	rm -rf bin/
