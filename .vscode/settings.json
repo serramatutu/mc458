@@ -1,5 +1,14 @@
 {
     "files.associations": {
         "iostream": "cpp"
-    }
+    },
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "pdflatex",
+            "tools": [
+                "pdflatex"
+            ]
+        }
+    ],
+    "latex-workshop.synctex.afterBuild.enabled": true
 }
