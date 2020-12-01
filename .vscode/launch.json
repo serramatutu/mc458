@@ -8,8 +8,12 @@
             "name": "g++ - Build and debug active file",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}/${fileBasenameNoExtension}",
-            "args": [],
+            "program": "/${workspaceFolder}/bin/${fileBasenameNoExtension}/${fileBasenameNoExtension}.out",
+            "args": [
+                "kmin/test/arq01.in",
+                "0",
+                "1"
+            ],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
