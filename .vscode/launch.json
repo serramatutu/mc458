@@ -10,7 +10,7 @@
             "request": "launch",
             "program": "/${workspaceFolder}/bin/${fileBasenameNoExtension}/${fileBasenameNoExtension}.out",
             "args": [
-                "kmin/test/arq01.in",
+                "kmin/experimentos/vet-1000000.ins",
                 "0",
                 "1"
             ],
