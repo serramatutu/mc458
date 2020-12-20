@@ -4,10 +4,10 @@ EXECUTABLE = bin/${TARGET}/${TARGET}.out
 
 SOURCES = $(wildcard ${TARGET}/*.cpp)
 OBJECTS = $(patsubst %.cpp, %.o, ${SOURCES})
-GFLAGS  = -O3 -Wall -std=c++98
+GFLAGS  = -std=c++11 -O3 -pedantic -Wall
 
-build: makedirs $(IMPORTED_OBJECTS) $(OBJECTS)
-	g++ $(GFLAGS) bin/${TARGET}/*.o ${TARGET}/bin/*.o -o $(EXECUTABLE)
+build: makedirs $(OBJECTS)
+	g++ $(GFLAGS) bin/${TARGET}/*.o -o $(EXECUTABLE)
 
 %.o: %.cpp
 	g++ $(GFLAGS) -g -c $< -o bin/$@
