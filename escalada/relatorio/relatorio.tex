@@ -35,13 +35,13 @@
   \begin{align*}\label{recorrencia}
     C(b_{i,j}) = 
     \begin{cases}
-      0,& \text{se } i = 0\\
+        |b_{i,j}|,& \text{se } i = 1\\
       \infty,& \text{se } j \notin [1,m] \\
       min\{C(b_{i-1,j-1}),C(b_{i-1,j}),C(b_{i-1,j+1})\} + |b_{i,j}|,& \text{de outra forma}
     \end{cases}
   \end{align*}
 
-  No primeiro caso (base), considera-se zero o custo de permanecer no chão (o zerésimo nível da parede de escalada).
+  No primeiro caso (base), considera-se que o custo de escalar para um bloco logo acima do chão é o custo do próprio bloco.
 
   No segundo caso (base), considera-se infinito o custo de chegar num bloco lateralmente fora da parede de escalada. Isso facilita o uso de índices horizontais sem a introdução de condicionais complicados no terceiro caso, para situações em que $j = 0$ e $j = m+1$.
 
@@ -53,7 +53,7 @@
   Ao analisar a recorrência do problema, percebi que, no $i$-ésimo nível, dependemos apenas dos custos do nível imediatamente abaixo para calcular os custos de se chegar em cada um de seus $j$ blocos. Assim cheguei na solução abaixo:
 
   \begin{quote}
-    Vamos inicializar um vetor de custos $C$ de tamanho $m+2$ com zeros, exceto na primeira e última posições, inicializadas com infinito. Então, para cada nível da matriz de escalada, de baixo para cima, vamos atualizar os valores de $C$ de modo que sua $(j+1)$-ésima posição contenha o custo de se chegar ao $j$-ésimo bloco daquele nível, incluindo o próprio bloco. Para calcular o custo total de um bloco, basta encontrar o mínimo custo entre os blocos a partir dos quais o alcançamos, ou seja, do bloco imediatamente abaixo e de suas diagonais inferiores, e somar com o custo do próprio bloco, armazenado na matriz de escalada. Ao final dos $n$ níveis, basta retornar o menor valor armazenado em $C$.
+    Vamos inicializar um vetor de custos $C$ de tamanho $m+2$ com infinito na primeira e última posições e os custos da primeira linha de blocos nas suas demais posições. Então, para cada nível da matriz de escalada a partir do segundo, de baixo para cima, vamos atualizar os valores de $C$ de modo que sua $(j+1)$-ésima posição contenha o custo de se chegar ao $j$-ésimo bloco daquele nível, incluindo o próprio bloco. Para calcular o custo total de um bloco, basta encontrar o mínimo custo entre os blocos a partir dos quais o alcançamos, ou seja, do bloco imediatamente abaixo e de suas diagonais inferiores, e somar com o custo do próprio bloco, armazenado na matriz de escalada. Ao final dos $n$ níveis, basta retornar o menor valor armazenado em $C$.
   \end{quote}
 
   O algoritmo desenvolvido usa programação dinâmica bottom-up, uma vez que soluciona-se os resultados dos subproblemas (blocos inferiores) antes de solucionar-se os problemas que deles dependem (blocos superiores).
@@ -61,11 +61,8 @@
   \section{Análise de complexidade}
   Quanto à complexidade de espaço, a única variável que depende das dimensões do problema é o vetor $C$, com $m+2$ posições. Logo, o algoritmo tem complexidade espacial $O(m)$.
 
-  Quanto à complexidade de tempo, para cada um dos $n$ níveis da matriz, percorremos o cada um de seus $m$ elementos uma vez, fazendo três acessos aos custos de seus vizinhos inferiores e calculando seu mínimo. Por isso, o algoritmo tem complexidade temporal $O(nm)$.
+  Quanto à complexidade de tempo, incializamos $C$ em $O(m)$ e, para cada um dos $n-1$ níveis da matriz a partir do segundo, percorremos cada um de seus $m$ elementos uma vez, fazendo um acesso para cada um de seus três vizinhos inferiores e calculando o mínimo entre esses valores. Então, percorremos $C$ uma última vez para encontrar seu menor valor, em $O(m)$. Por isso, o algoritmo tem complexidade temporal $O(nm)$.
 
   Se considerarmos que $m \in O(n)$, então o algoritmo tem complexidade espacial $O(n)$ e temporal $O(n^2)$.
-
-  \section{Notas sobre a implementação}
-  A inicialização de $C$ (caso base) foi alterada para conter os valores da primeira linha da matriz no lugar de zeros. Assim, evita-se sua atualização para a situação em que $min\{C(b_{i-1,j-1}),C(b_{i-1,j}),C(b_{i-1,j+1})\} = 0$, poupando-se uma iteração e começando de fato a partir da segunda linha. Isso faz com que se atualize $C$ apenas $n-1$ vezes ao invés de $n$, reduzindo o tempo de execução por uma constante.
 
 \end{document}
