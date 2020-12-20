@@ -17,7 +17,7 @@ vector<vector<size_t> > read_input(istream& input) {
     
     vector<vector<size_t>> ret(rows);
     for (size_t i = 0; i < rows; i++) {
-        ret[i].reserve(columns + 2);        
+        ret[i].reserve(columns);        
         for (size_t j = 0; j < columns; j++) {
             size_t cost;
             input >> cost;
